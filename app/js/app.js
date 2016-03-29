@@ -29,7 +29,14 @@ angular.module('myApp',['ngRoute','myApp.controller','myApp.services']).
 				templateUrl : '../templates/addqjia.html',
 				controller  : ''
 			})
-
+			.when('/dashi',{
+				templateUrl : '../templates/dashi.html',
+				controller  : ''
+			})
+			.when('/guzhang',{
+				templateUrl : '../templates/guzhang.html',
+				controller  : ''
+			})
 
 			.otherwise({
 				redirectTo:'/'
