@@ -43,11 +43,6 @@ angular.module('myApp',[
 		// 		return $q.reject(rejection);
 		// 		}
 		// 		};
-
-
-
-
-
 		$stateProvider
 			.state('home',{
 				url: '/',
@@ -70,7 +65,7 @@ angular.module('myApp',[
 			})
 			.state('wxrz',{
 				url: '/wxrz',
-				templateUrl : '../templates/wxrz.html'
+				templateUrl : '../templates/onlytest/wxrz.html'
 			})
 			.state('gzrz',{
 				url: '/gzrz',
@@ -102,6 +97,9 @@ angular.module('myApp',[
 			});
 			$urlRouterProvider.otherwise('/');
 
+	}).
+	constant('settings', {
+		apiaddress : 'http:'
 	}).
 	controller('testcontroller', function($scope){
 		$scope.message = "hello world";
