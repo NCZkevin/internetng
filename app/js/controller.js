@@ -4,7 +4,14 @@ angular.module('myApp.controller',[])
 		$scope.rzlist = data;
 	}).error(function(data,status,headers,config){
 
-	}) });
+	}) })
+  .controller('zbController',function(){
+    $scope.name='zbController';
+    newZhoubao.getZhoubao();
+    $scope.$on('zhou_ok',function () {
+      $scope.zhou = newZhoubao.getRealZhoubao();
+    })
 
-
-
+    
+  }
+)

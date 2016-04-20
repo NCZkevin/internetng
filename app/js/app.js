@@ -2,7 +2,7 @@ angular.module('myApp',[
 	'ngRoute',
 	'ngResource',
 	'ui.router',
-
+	'myApp.config',
 	'myApp.controller',
 	'myApp.services']).
 
@@ -11,38 +11,6 @@ angular.module('myApp',[
 		  enabled: true,
 		  requireBase: false
 		});
-
-		// var interceptor = function($q, $rootScope, Auth) {
-		// 	return {
-		// 	'response': function(resp) {
-		// 	if (resp.config.url == '/api/login') {
-		// 	// 假设API服务器返回的数据格式如下:
-		// 	// { token: "AUTH_TOKEN" }
-		// 	Auth.setToken(resp.data.token);
-		// 	}
-		// 	return resp;
-		// 	},
-		// 'responseError': function(rejection) {
-		// 	// 错误处理
-		// switch(rejection.status) {
-		// 	case 401:
-		// 	if (rejection.config.url!=='api/login')
-		// 		// 如果当前不是在登录页面
-		// 		$rootScope.$broadcast('auth:loginRequired');
-		// 		break;
-		// 		case 403:
-		// 		$rootScope.$broadcast('auth:forbidden');
-		// 		break;
-		// 		case 404:
-		// 		$rootScope.$broadcast('page:notFound');
-		// 		break;
-		// 		case 500:
-		// 		$rootScope.$broadcast('server:error');
-		// 		break;
-		// 		}
-		// 		return $q.reject(rejection);
-		// 		}
-		// 		};
 		$stateProvider
 			.state('home',{
 				url: '/',
@@ -142,11 +110,34 @@ angular.module('myApp',[
 	// });
 
 
-
-
-
-
-
-
-
-
+			// var interceptor = function($q, $rootScope, Auth) {
+			// 	return {
+			// 	'response': function(resp) {
+			// 	if (resp.config.url == '/api/login') {
+			// 	// 假设API服务器返回的数据格式如下:
+			// 	// { token: "AUTH_TOKEN" }
+			// 	Auth.setToken(resp.data.token);
+			// 	}
+			// 	return resp;
+			// 	},
+			// 'responseError': function(rejection) {
+			// 	// 错误处理
+			// switch(rejection.status) {
+			// 	case 401:
+			// 	if (rejection.config.url!=='api/login')
+			// 		// 如果当前不是在登录页面
+			// 		$rootScope.$broadcast('auth:loginRequired');
+			// 		break;
+			// 		case 403:
+			// 		$rootScope.$broadcast('auth:forbidden');
+			// 		break;
+			// 		case 404:
+			// 		$rootScope.$broadcast('page:notFound');
+			// 		break;
+			// 		case 500:
+			// 		$rootScope.$broadcast('server:error');
+			// 		break;
+			// 		}
+			// 		return $q.reject(rejection);
+			// 		}
+			// 		};
