@@ -53,11 +53,13 @@ angular.module('myApp',[
 			})
 			.state('guzhang',{
 				url: '/guzhang',
-				templateUrl : '../templates/worklog/guzhang.html'
+				templateUrl : '../templates/worklog/guzhang.html',
+				controller : 'guzhangCtrl'
 			})
 			.state('sxzb',{
 				url: '/sxzb',
-				templateUrl : '../templates/student/sxzb.html'
+				templateUrl : '../templates/student/sxzb.html',
+				controller : 'zbController'
 			})
 			.state('addsxzb',{
 				url: '/addsxzb',
@@ -66,8 +68,18 @@ angular.module('myApp',[
 			$urlRouterProvider.otherwise('/');
 
 	}).
-	constant('settings', {
-		apiaddress : 'http:'
+	config(function($httpProvider){
+		var interceptor = function($q, $rootScope, Auth) {
+			return {
+				'request' : function (req) {
+					req.params = req.params || {};
+					if (Session.isAuthorized() && !req.params.token) {
+						req.params.token = Auth.getToken();
+					}
+					return req;
+				}
+			}
+		}
 	}).
 	controller('testcontroller', function($scope){
 		$scope.message = "hello world";

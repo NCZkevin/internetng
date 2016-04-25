@@ -1,6 +1,6 @@
 angular.module('myApp.services',[])
 .factory('newZhoubao',function ($resource,ENV,$rootScope) {
-	var ApiUrl = ENV.api;
+	var ApiUrl = ENV.sxzb;
 	zhoubao = {};
 	return{
 		getZhoubao:function(){
@@ -14,30 +14,73 @@ angular.module('myApp.services',[])
 		}
 	}
 })
-.factory('NewTopics',function($resource,ENV,$rootScope,$ionicLoading){
+.factory('guzhanglist',function ($resource,ENV,$rootScope) {
+	var ApiUrl = ENV.guzhang;
+	guzhang = {};
+	return{
+		getguzhang:function(){
+			$resource(ApiUrl).get({},function(resp){
+				zhoubao = resp.result;
+				$rootScope.$broadcast('gzlist_ok');
+			});
+		},
+		getRealguzhang:function () {
+			return zhoubao;
+		}
+	}
+})
+.factory('UserLogin', function ($resource,ENV,$rootScope) {
 	var ApiUrl = ENV.api;
-	ApiUrl = ApiUrl + "/NewTopics";
-	result = [];
-	return {
-		NewTopic : function(id,title,content,token){
+	ApiUrl = ApiUrl + "/UserLogin";
+	user = {};
+	return{
+		login: function(email,password) {
 			return $resource(ApiUrl,{}).save({
-				id: id,
-				title: title,
-				content:content,
-				sign:token
+				email: email,
+				password: password
 			}, function(response) {
-				result = response ;
-				$rootScope.$broadcast('PostTopic_Ok');//已执行
+				//console.log(response);
+				user=response.result;
+				$rootScope.$broadcast('Login_ok');
+			})
+		},
+		getCurrentUser: function(){
+			return user;
+		},
+		getLogout:function(){
+			remove('user');
+		}
+	}
+})
+//用户注册
+.factory('RegisterFactory',function($rootScope,$resource,ENV){
+	var ApiUrl = ENV.api;
+	ApiUrl = ApiUrl + "/UserRegister";
+	var user ={};
+	return{
+		register: function (email,username,password,sex) {
+			$resource(ApiUrl,{}).save({
+				email: email,
+				username:username,
+				password: password,
+				sex:sex
+			}, function (resp) {
+				user = resp.result;
+				$rootScope.$broadcast('Register_ok');
 			},function(){
-				$ionicLoading.show({
+				show({
 					noBackdrop:true,
 					template:"网络超时，请检查数据连接",
 					duration:2000
 				});
-			});
+			})
+		},
+		getMsg: function () {
+			return user;
 		}
 	}
 })
+
 // .factory('tmsUtil',  function(){
 // 	processHttpError = function (res) {
 // 		console.log(res);
