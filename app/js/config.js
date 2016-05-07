@@ -5,5 +5,6 @@ myConfig.constant("ENV",{
   "worklog" : "localhost:3000/api/worklog",
   "sxzb"  : "localhost:3000/api/sxzb",
   "leave": "localhost:3000/api/leave",
-  "guzhang" : "localhost:3000/api/guzhang"
+  "guzhang" : "localhost:3000/api/guzhang",
+  "test" : "localhost:8080/api/test"
 })

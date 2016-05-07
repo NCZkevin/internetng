@@ -34,7 +34,7 @@
   <div class="login-box-body">
     <p class="login-box-msg"></p>
 
-    <form ng-submit="dologin()">
+    <!-- <form ng-submit="dologin()">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -50,18 +50,18 @@
               <input type="checkbox"> Remember Me
             </label>
           </div>
-        </div>
+        </div> -->
         <!-- /.col -->
-        <div class="col-xs-4">
+        <!-- <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">登入</button>
-        </div>
+        </div> -->
         <!-- /.col -->
-      </div>
-    </form>
+      <!-- </div>
+    </form> -->
 
     <!-- /.social-auth-links -->
-
-    <a href="#">忘记密码</a><br>
+    <a href="http://localhost:8080/oauth/authorize?response_type=code&scope=read%20write&client_id=test&redirect_uri=http://localhost:8000/login/auth&state=09876999"><button type="button" name="button" class="btn btn-primary btn-block ">登入</button></a>
+    <!-- <a href="#">忘记密码</a><br> -->
 <!--     <a href="register.html" class="text-center">Register a new membership</a>
  -->
   </div>

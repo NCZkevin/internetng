@@ -1,10 +1,10 @@
 angular.module('myApp.services',[])
 .factory('newZhoubao',function ($resource,ENV,$rootScope) {
-	var ApiUrl = ENV.sxzb;
+	var ApiUrl = ENV.test;
 	zhoubao = {};
 	return{
 		getZhoubao:function(){
-			$resource(ApiUrl).get({},function(resp){
+			$resource(ApiUrl).post({},function(resp){
 				zhoubao = resp.result;
 				$rootScope.$broadcast('zhou_ok');
 			});

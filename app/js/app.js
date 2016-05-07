@@ -7,10 +7,10 @@ angular.module('myApp',[
 	'myApp.services']).
 
 	config(function($stateProvider,$locationProvider,$urlRouterProvider,$httpProvider) {
-		$locationProvider.html5Mode({
-		  enabled: true,
-		  requireBase: false
-		});
+		// $locationProvider.html5Mode({
+		//   enabled: true,
+		//   requireBase: false
+		// });
 		$stateProvider
 			.state('home',{
 				url: '/',
@@ -83,7 +83,25 @@ angular.module('myApp',[
 	}).
 	controller('testcontroller', function($scope){
 		$scope.message = "hello world";
-	});
+	})
+	// .factory('OAuth',function($rootScope,$httpProvider))
+
+	;
+	// .
+	// factory('oauthHttpInterceptor', [ 'OAuth', function(OAuth, $q) {
+  //   return {
+	// 		 request: function(config) {
+	//
+	// 		  if (config.headers.Authorization === 'Bearer') {
+	// 		  config.headers.Authorization = 'Bearer ' + btoa(OAuth.accessToken);
+	// 		  }
+	// 		  return config;
+	// 		 }
+	// 		 };
+	// }]).
+	// config(function($httpProvider) {
+	// 		 $httpProvider.interceptors.push('oauthHttpInterceptor');
+	// });
 	// .factory('Auth', function($cookieStore,ACCESS_LEVELS) {
 	// 	var _user = $cookieStore.get('user');
 	// 	var setUser = function(user) {
