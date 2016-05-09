@@ -28,9 +28,68 @@ angular.module('myApp.controller',[])
     $scope.gz = guzhanglist.getRealguzhang();
   })
 
+})
+.config(function ($httpProvider) {
+   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+})
+.controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$localStorage','$http', function($rootScope, $scope, $location, $localStorage, $http) {
+        var oauthurl = 'http://localhost:8080/oauth/token?client_id=test&client_secret=test&grant_type=password&scope=read write';
+        var baseUrl = "http://localhost:8080/oauth/token?client_id=test&client_secret=test&grant_type=password&scope=read write&username=";
+        $scope.signin = function() {
+            var formData = {
+                email: $scope.username,
+                password: $scope.password
+            };
+            $http.post(baseUrl + $scope.username + '&password=' + $scope.password,{headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
+            .success(function(data){
+              token = data.access_token;
+              console.log(token);
+              $localStorage.token = data.access_token;
+              window.location = "/";
+            })
 
-}
-)
+          // $http({
+          //   method: 'POST',
+          //   url : baseUrl + $scope.username + '&password=' + $scope.password,
+          //   headers: {
+          //       'Content-Type': 'application/x-www-form-urlencoded'}
+          // }).success(function(data) {
+          //     console.log(data);
+          //   });
+
+          //  $http.post(baseUrl + $scope.username + '&password=' + $scope.password,{ 'Content-Type': 'application/x-www-form-urlencoded'})
+          //  .success(function(data){
+          //    console.log(data);
+          //  });
+            // Main.signin(formData, function(res) {
+            //     if (res.type == false) {
+            //         alert(res.data)
+            //     } else {
+            //         $localStorage.token = res.data.token;
+            //         window.location = "/";
+            //     }
+            // }, function() {
+            //     $rootScope.error = 'Failed to signin';
+            // })
+        };
+
+        $scope.token = $localStorage.token;
+    }])
+    .controller('testCtrl', ['$rootScope', '$scope', '$location', '$localStorage','$http', function($rootScope, $scope, $location, $localStorage, $http) {
+            var testurl = "http://localhost:8080/api/test";
+            $scope.testjson = function() {
+
+                $http.post(testurl,null,{headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                  'Authorization': 'Bearer ' + $localStorage.token,
+                  'withCredentials': true
+                  }})
+                .success(function(data){
+                  console.log(data);
+                })
+              };
+        }]);
+
 // .controller('PersonalCtrl', function($scope,$rootScope,Storage,$state,UserLogin,$ionicActionSheet,$timeout) {
 //   $rootScope.hide='tabs-item-hide';
 //   $scope.$on('$destroy',function(){

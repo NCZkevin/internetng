@@ -2,6 +2,7 @@ angular.module('myApp',[
 	'ngRoute',
 	'ngResource',
 	'ui.router',
+	'ngStorage',
 	'myApp.config',
 	'myApp.controller',
 	'myApp.services']).
@@ -29,7 +30,8 @@ angular.module('myApp',[
 			})
 			.state('login',{
 				url: '/login',
-				templateUrl : '../templates/login/index.html'
+				templateUrl : '../templates/login/index.html',
+				controller: 'HomeCtrl'
 			})
 			.state('wxrz',{
 				url: '/wxrz',
@@ -61,6 +63,11 @@ angular.module('myApp',[
 				templateUrl : '../templates/student/sxzb.html',
 				controller : 'zbController'
 			})
+			.state('test',{
+				url: '/test',
+				templateUrl: '../templates/onlytest/test.html',
+				controller: 'testCtrl'
+			})
 			.state('addsxzb',{
 				url: '/addsxzb',
 				templateUrl : '../templates/student/addsxzb.html'
@@ -69,17 +76,43 @@ angular.module('myApp',[
 
 	}).
 	config(function($httpProvider){
-		var interceptor = function($q, $rootScope, Auth) {
-			return {
-				'request' : function (req) {
-					req.params = req.params || {};
-					if (Session.isAuthorized() && !req.params.token) {
-						req.params.token = Auth.getToken();
-					}
-					return req;
-				}
-			}
-		}
+		// var interceptor = function($q, $rootScope, Auth) {
+		// 	return {
+		// 		'request' : function (req) {
+		// 			req.params = req.params || {};
+		// 			if (Session.isAuthorized() && !req.params.token) {
+		// 				req.params.token = Auth.getToken();
+		// 			}
+		// 			return req;
+		// 		}
+		// 	}
+		// }
+		// $httpProvider.interceptors.push('AuthInterceptor');
+
+	 $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+	//  if($localStorage.token){
+	// 		$http.defaults.headers.common.Authorization= 'Bearer ' + $localStorage.token;
+	// }else{
+	// 		window.location.href = "/login";
+	// };
+	//  $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
+	// 			return {
+	// 					'request': function (config) {
+	// 							config.headers = config.headers || {};
+	// 							if ($localStorage.token) {
+	// 									config.headers.Authorization = 'Bearer ' + $localStorage.token;
+	// 							}
+	// 							return config;
+	// 					},
+	// 					'responseError': function(response) {
+	// 							if(response.status === 401 || response.status === 403) {
+	// 									$location.path('/signin');
+	// 							}
+	// 							return $q.reject(response);
+	// 					}
+	// 			};
+	// 	}]);
+
 	}).
 	controller('testcontroller', function($scope){
 		$scope.message = "hello world";

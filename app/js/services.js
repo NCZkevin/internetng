@@ -80,6 +80,50 @@ angular.module('myApp.services',[])
 		}
 	}
 })
+.factory('AuthInterceptor', function ($rootScope, $q, $cookies, $location, $injector ,$localStorage) {
+	var Auth;
+	return {
+		request: function (config) {
+			config.headers = config.headers || {};
+			if ($localStorage.token) {
+				config.headers.Authorization = 'Bearer ' + $localStorage.token;
+			}
+			return config;
+		},
+		response: function (response) {
+			return response;
+		},
+		responseError:function(rejection){
+			if (rejection.status === 401) {
+				Auth = $injector.get('Auth');
+				Auth.logout();
+				$location.path('/login');
+				return $q.reject(rejection);
+			}else {
+				return $q.reject(rejection);
+			}
+		}
+	};
+});
+// .factory('Auth', ['$rootScope', '$scope', '$location', '$localStorage','$http', function($rootScope, $scope, $location, $localStorage, $http) {
+//         var baseUrl = "http://localhost:8080/oauth/token?client_id=test&client_secret=test&grant_type=password&scope=read write&username="
+//         $scope.signin = function() {
+//             var formData = {
+//                 email: $scope.username,
+//                 password: $scope.password
+//             };
+//           $http({
+//             method: 'POST',
+//             url : baseUrl + $scope.username + '&password=' + $scope.password,
+//             headers : { 'Content-Type': 'application/x-www-form-urlencoded',
+//                       'Accept': 'application/x-www-form-urlencoded'}
+//           }).success(function(data) {
+//               console.log(data);
+//             });
+//
+//
+//         $scope.token = $localStorage.token;
+//     }]);
 
 // .factory('tmsUtil',  function(){
 // 	processHttpError = function (res) {
