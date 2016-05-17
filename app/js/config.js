@@ -1,4 +1,5 @@
 var myConfig = angular.module('myApp.config', []);
+var kurl = "222.204.40.127";
 myConfig.constant("ENV",{
   "api"   : "localhost:3000",
   "login" : "localhost:3000/login",

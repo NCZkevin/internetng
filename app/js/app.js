@@ -87,31 +87,37 @@ angular.module('myApp',[
 		// 		}
 		// 	}
 		// }
-		// $httpProvider.interceptors.push('AuthInterceptor');
 
+		//拦截请求，在头部加上token
+		// $httpProvider.interceptors.push('AuthInterceptor');
+		// $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
+		// $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 	 $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 	//  if($localStorage.token){
 	// 		$http.defaults.headers.common.Authorization= 'Bearer ' + $localStorage.token;
 	// }else{
 	// 		window.location.href = "/login";
 	// };
-	//  $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
-	// 			return {
-	// 					'request': function (config) {
-	// 							config.headers = config.headers || {};
-	// 							if ($localStorage.token) {
-	// 									config.headers.Authorization = 'Bearer ' + $localStorage.token;
-	// 							}
-	// 							return config;
-	// 					},
-	// 					'responseError': function(response) {
-	// 							if(response.status === 401 || response.status === 403) {
-	// 									$location.path('/signin');
-	// 							}
-	// 							return $q.reject(response);
-	// 					}
-	// 			};
-	// 	}]);
+
+	//拦截请求，在头部加上token
+	 $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
+				return {
+						'request': function (config) {
+								config.headers = config.headers || {};
+								if ($localStorage.token) {
+										config.headers.Authorization = 'Bearer ' + $localStorage.token;
+										console.log(config.headers);
+								}
+								return config;
+						},
+						'responseError': function(response) {
+								if(response.status === 401 || response.status === 403) {
+										$location.path('/login');
+								}
+								return $q.reject(response);
+						}
+				};
+		}]);
 
 	}).
 	controller('testcontroller', function($scope){

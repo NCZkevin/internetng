@@ -33,13 +33,9 @@ angular.module('myApp.controller',[])
    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 })
 .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$localStorage','$http', function($rootScope, $scope, $location, $localStorage, $http) {
-        var oauthurl = 'http://localhost:8080/oauth/token?client_id=test&client_secret=test&grant_type=password&scope=read write';
+
         var baseUrl = "http://localhost:8080/oauth/token?client_id=test&client_secret=test&grant_type=password&scope=read write&username=";
         $scope.signin = function() {
-            var formData = {
-                email: $scope.username,
-                password: $scope.password
-            };
             $http.post(baseUrl + $scope.username + '&password=' + $scope.password,{headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
             .success(function(data){
               token = data.access_token;
@@ -81,11 +77,11 @@ angular.module('myApp.controller',[])
 
                 $http.post(testurl,null,{headers: {
                   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                  'Authorization': 'Bearer ' + $localStorage.token,
-                  'withCredentials': true
+                  'Authorization': 'Bearer ' + $localStorage.token
                   }})
                 .success(function(data){
                   console.log(data);
+                  $scope.data = data;
                 })
               };
         }]);
