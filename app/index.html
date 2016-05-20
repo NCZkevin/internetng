@@ -14,7 +14,7 @@
   <link href="//cdn.bootcss.com/ionicons/2.0.1/css/ionicons.css" rel="stylesheet">
   <!-- Theme style -->
   <link rel="stylesheet" href="./bower_components/AdminLTE/dist/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
+
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="./bower_components/AdminLTE/dist/css/skins/_all-skins.min.css">
@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="./bower_components/AdminLTE/plugins/daterangepicker/daterangepicker-bs3.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="./bower_components/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+  <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -164,7 +164,7 @@
           </ul>
         </li> -->
         <li class="treeview">
-          <a href="#">
+          <a href="">
             <i class="fa fa-server"></i>
             <span>日志列表</span>
           </a>
@@ -178,7 +178,7 @@
         </li>
 
         <li class="treeview">
-          <a href="#">
+          <a href="">
             <i class="fa fa-server"></i>
             <span>请假列表</span>
           </a>
@@ -191,7 +191,7 @@
         </li>
 
         <li class="treeview">
-          <a href="#">
+          <a href="">
             <i class="fa fa-server"></i>
             <span>运维日志</span>
           </a>
@@ -204,19 +204,19 @@
         </li>
 
         <li class="treeview">
-          <a href="#">
+          <a href="">
             <i class="fa fa-server"></i>
             <span>运维管理</span>
           </a>
 
         <ul class="treeview-menu">
-          <li><a ng-href="#/addrz"><i class="fa fa-circle-o"></i>实时ap统计</a></li>
-          <li><a ng-href="#/addrz"><i class="fa fa-circle-o"></i>历史ap统计</a></li>
+          <li><a ng-href="#/ap"><i class="fa fa-circle-o"></i>实时ap统计</a></li>
+          <li><a ng-href="#/apline"><i class="fa fa-circle-o"></i>历史ap统计</a></li>
         </ul>
         </li>
 
             <li class="treeview">
-          <a href="#">
+          <a href="">
             <i class="fa fa-server"></i>
             <span>实习生管理</span>
           </a>
@@ -235,12 +235,12 @@
   <div ui-view></div>
 
 
-  <footer class="main-footer">
+  <!-- <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>By</b> NCZkevin
     </div>
     <strong>Copyright &copy; 2015-2016 <a href="http://almsaeedstudio.com">南昌大学网络中心</a>.</strong>
-  </footer>
+  </footer> -->
 
   <!-- Control Sidebar -->
 
@@ -283,13 +283,13 @@
 <script src="./bower_components/AdminLTE/dist/js/demo.js"></script>
 <script src="config/config.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
-<!-- <script src="./bower_components/angular-chart.js/dist/angular-chart.js"></script> -->
+<script src="bower_components/Chart.js/Chart.min.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="bower_components/angular-resource/angular-resource.min.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
 <script src="bower_components/ngstorage/ngStorage.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
-
+<script src="./bower_components/angular-chart.js/dist/angular-chart.js"></script>
 <script src="js/controller.js"></script>
 <script src="js/services.js"></script>
 <script src="js/config.js"></script>

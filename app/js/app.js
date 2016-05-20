@@ -3,6 +3,7 @@ angular.module('myApp',[
 	'ngResource',
 	'ui.router',
 	'ngStorage',
+
 	'myApp.config',
 	'myApp.controller',
 	'myApp.services']).
@@ -27,6 +28,16 @@ angular.module('myApp',[
 						url: 'http://222.204.3.127'
 					})
 				}
+			})
+			.state('ap',{
+				url:'/ap',
+				templateUrl : '../templates/ap/ap.html',
+				controller : 'ApCtrl'
+			})
+			.state('aptest',{
+				url:'/apline',
+				templateUrl : '../templates/ap/apline.html',
+				controller : 'LineCtrl' 
 			})
 			.state('login',{
 				url: '/login',
@@ -106,7 +117,7 @@ angular.module('myApp',[
 								config.headers = config.headers || {};
 								if ($localStorage.token) {
 										config.headers.Authorization = 'Bearer ' + $localStorage.token;
-										console.log(config.headers);
+										// console.log(config.headers);
 								}
 								return config;
 						},

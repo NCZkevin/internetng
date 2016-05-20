@@ -1,4 +1,78 @@
-angular.module('myApp.controller',[])
+angular.module('myApp.controller',['chart.js'])
+.config(['ChartJsProvider', function (ChartJsProvider) {
+    // Configure all charts
+    ChartJsProvider.setOptions({
+      colours: ['#FF5252', '#FF8A80'],
+      responsive: false
+    });
+    // Configure all line charts
+    ChartJsProvider.setOptions('Line', {
+      datasetFill: false
+    });
+  }])
+  .controller("LineCtrl", ['$scope', '$timeout', function ($scope, $timeout) {
+
+  $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+  $scope.series = ['Series A', 'Series B'];
+  $scope.data = [
+    [65, 59, 80, 81, 56, 55, 40],
+    [28, 48, 40, 19, 86, 27, 90]
+  ];
+  $scope.onClick = function (points, evt) {
+    console.log(points, evt);
+  };
+
+  // Simulate async data update
+  $timeout(function () {
+    $scope.data = [
+      [28, 48, 40, 19, 86, 27, 90],
+      [65, 59, 80, 81, 56, 55, 40]
+    ];
+  }, 3000);
+}])
+ .controller('ApCtrl',function($scope,ENV,apData,$http){
+  $scope.name='ApCtrl';
+  // apData.getApdata();
+  // $scope.testap = apData.getApDetail();
+  $http.post(ENV.test,null,{headers: {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }})
+  .success(function(data){
+    $scope.testap= data;
+    $scope.aplist = data.list;
+
+
+    var dataArray=eval(data.realtimeCounter);
+
+    function transform(obj){
+      var arr = [];
+      for(var item in obj){
+          arr.push(obj[item]);
+      }
+      return arr;
+    }
+    var aparr = transform(data.realtimeCounter);
+    console.log(aparr);
+    var namearr = [];
+    for(var o in data.realtimeCounter){//遍历 obj
+      namearr.push(o);//存入数组
+    }
+    console.log(namearr);
+    $scope.labels = namearr;
+    $scope.series = ['A'];
+
+    $scope.data = [
+      aparr
+    ];
+  });
+
+
+
+  // $scope.$on('ap_ok',function () {
+  //   $scope.apdata = apData.getApdata();
+  // })
+  }
+)
   .controller('RzController', function($scope,$http){
 	$http.get('../json/data.json').success(function(data,status,headers,config){
 		$scope.rzlist = data;
@@ -34,7 +108,7 @@ angular.module('myApp.controller',[])
 })
 .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$localStorage','$http', function($rootScope, $scope, $location, $localStorage, $http) {
 
-        var baseUrl = "http://localhost:8080/oauth/token?client_id=test&client_secret=test&grant_type=password&scope=read write&username=";
+        var baseUrl = "http://222.204.3.177/oauth/token?client_id=test&client_secret=test&grant_type=password&scope=read write&username=";
         $scope.signin = function() {
             $http.post(baseUrl + $scope.username + '&password=' + $scope.password,{headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
             .success(function(data){
@@ -71,11 +145,11 @@ angular.module('myApp.controller',[])
 
         $scope.token = $localStorage.token;
     }])
-    .controller('testCtrl', ['$rootScope', '$scope', '$location', '$localStorage','$http', function($rootScope, $scope, $location, $localStorage, $http) {
-            var testurl = "http://localhost:8080/api/test";
+    .controller('testCtrl', ['$rootScope', '$scope', '$location', '$localStorage','$http','ENV', function($rootScope, $scope, $location, $localStorage, $http,ENV) {
+            // var testurl = "http://localhost:8080/api/test";
             $scope.testjson = function() {
 
-                $http.post(testurl,null,{headers: {
+                $http.post(ENV.test,null,{headers: {
                   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                   'Authorization': 'Bearer ' + $localStorage.token
                   }})

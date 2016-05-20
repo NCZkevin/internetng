@@ -1,5 +1,6 @@
 var myConfig = angular.module('myApp.config', []);
-var kurl = "222.204.40.127";
+var kurl = "http://222.204.3.177";
+var local = "localhost:8080"
 myConfig.constant("ENV",{
   "api"   : "localhost:3000",
   "login" : "localhost:3000/login",
@@ -7,5 +8,6 @@ myConfig.constant("ENV",{
   "sxzb"  : "localhost:3000/api/sxzb",
   "leave": "localhost:3000/api/leave",
   "guzhang" : "localhost:3000/api/guzhang",
-  "test" : "localhost:8080/api/test"
+  "test" : kurl + '/api/test'
+
 })

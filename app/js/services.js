@@ -1,4 +1,27 @@
-angular.module('myApp.services',[])
+angular.module('myApp.services',['ngResource'])
+.factory('apData',function ($resource,ENV,$rootScope,$http) {
+	var ApiUrl = ENV.test;
+	apdata = {};
+	return{
+		getApdata:function(){
+			$resource(ApiUrl).get({},function(resp){
+				apdata = resp.result;
+				$rootScope.$broadcast('ap_ok');
+				return apdata;
+			});
+		},
+		getApDetail: function () {
+			$http.post(ENV.test,null,{headers: {
+				'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				}})
+			.success(function(data){
+				$rootScope.$broadcast('ap_ok');
+				apdata = data;
+				return apdata;
+			});
+		}
+	}
+})
 .factory('newZhoubao',function ($resource,ENV,$rootScope) {
 	var ApiUrl = ENV.test;
 	zhoubao = {};
