@@ -3,10 +3,10 @@ angular.module('myApp',[
 	'ngResource',
 	'ui.router',
 	'ngStorage',
-
 	'myApp.config',
-	'myApp.controller',
-	'myApp.services']).
+	'myApp.services',
+	'myApp.controller'
+	]).
 
 	config(function($stateProvider,$locationProvider,$urlRouterProvider,$httpProvider) {
 		// $locationProvider.html5Mode({
@@ -16,7 +16,8 @@ angular.module('myApp',[
 		$stateProvider
 			.state('home',{
 				url: '/',
-				templateUrl : '../templates/home.html'
+				templateUrl : '../templates/home.html',
+				controller : 'indexCtrl'
 			})
 			.state('addrz',{
 				url: '/addrz',
@@ -37,7 +38,7 @@ angular.module('myApp',[
 			.state('aptest',{
 				url:'/apline',
 				templateUrl : '../templates/ap/apline.html',
-				controller : 'LineCtrl' 
+				controller : 'HisapCtrl'
 			})
 			.state('login',{
 				url: '/login',
@@ -72,8 +73,13 @@ angular.module('myApp',[
 			.state('sxzb',{
 				url: '/sxzb',
 				templateUrl : '../templates/student/sxzb.html',
-				controller : 'zbController'
+				controller : 'zbCtrl'
 			})
+			// .statr('sxzb.detail',{
+			// 	url: '/sxzb/:id',
+			// 	templateUrl : '../templates/student/zbdetail.html',
+			// 	controller: 'zbdeCtrl'
+			// })
 			.state('test',{
 				url: '/test',
 				templateUrl: '../templates/onlytest/test.html',
@@ -103,6 +109,8 @@ angular.module('myApp',[
 		// $httpProvider.interceptors.push('AuthInterceptor');
 		// $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
 		// $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+		$httpProvider.defaults.useXDomain = true;
+		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	 $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 	//  if($localStorage.token){
 	// 		$http.defaults.headers.common.Authorization= 'Bearer ' + $localStorage.token;
@@ -117,7 +125,7 @@ angular.module('myApp',[
 								config.headers = config.headers || {};
 								if ($localStorage.token) {
 										config.headers.Authorization = 'Bearer ' + $localStorage.token;
-										// console.log(config.headers);
+										console.log(config.headers);
 								}
 								return config;
 						},

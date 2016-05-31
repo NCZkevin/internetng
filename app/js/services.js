@@ -1,7 +1,9 @@
 angular.module('myApp.services',['ngResource'])
-.factory('apData',function ($resource,ENV,$rootScope,$http) {
-	var ApiUrl = ENV.test;
+.factory('apData',function ($resource,ENV,$rootScope,$http,$q) {
+	var ApiUrl = ENV.realap;
 	apdata = {};
+	var deferred  = $q.defer();
+	var promise = deferred.promise;
 	return{
 		getApdata:function(){
 			$resource(ApiUrl).get({},function(resp){
@@ -11,16 +13,63 @@ angular.module('myApp.services',['ngResource'])
 			});
 		},
 		getApDetail: function () {
-			$http.post(ENV.test,null,{headers: {
+			$http.post(ENV.realap,null,{headers: {
 				'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 				}})
 			.success(function(data){
-				$rootScope.$broadcast('ap_ok');
-				apdata = data;
-				return apdata;
+				deferred.resolve(data);
 			});
+			return promise;
 		}
 	}
+})
+.factory('HisapData',function ($resource,ENV,$rootScope,$http,$q) {
+	var ApiUrl = ENV.historyap;
+	apdata = {};
+	var deferred  = $q.defer();
+	var promise = deferred.promise;
+	return{
+		getHisap: function () {
+			$http.post(ApiUrl,null,{headers: {
+				'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				}})
+			.success(function(data){
+				deferred.resolve(data);
+			});
+			return promise;
+		}
+	}
+})
+.factory('userService',function ($resource,ENV,$rootScope,$http,$q) {
+	var ApiUrl = ENV.user;
+	var deferred  = $q.defer();
+	var promise = deferred.promise;
+	return{
+		getUserDetail: function () {
+			$http.get(ApiUrl)
+			.success(function(data){
+				deferred.resolve(data);
+			});
+			return promise;
+		}
+	}
+})
+.factory('zbService',function ($resource,ENV,$rootScope,$http,$q) {
+	var ApiUrl = ENV.worklist;
+	var deferred  = $q.defer();
+	var promise = deferred.promise;
+	return{
+		getZb: function () {
+			$http.get(ApiUrl)
+			.success(function(data){
+				deferred.resolve(data);
+			});
+			return promise;
+		}
+	}
+})
+.factory('zbdeService',function ($resource,ENV,$http,$q) {
+	 return $resource(ENV.zb + '/:id');
 })
 .factory('newZhoubao',function ($resource,ENV,$rootScope) {
 	var ApiUrl = ENV.test;

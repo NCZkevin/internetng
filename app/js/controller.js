@@ -23,20 +23,50 @@ angular.module('myApp.controller',['chart.js'])
   };
 
   // Simulate async data update
-  $timeout(function () {
-    $scope.data = [
-      [28, 48, 40, 19, 86, 27, 90],
-      [65, 59, 80, 81, 56, 55, 40]
-    ];
-  }, 3000);
+  // $timeout(function () {
+  //   $scope.data = [
+  //     [28, 48, 40, 19, 86, 27, 90],
+  //     [65, 59, 80, 81, 56, 55, 40]
+  //   ];
+  // }, 3000);
 }])
+.controller('HisapCtrl',function($scope,ENV,HisapData,$http){
+
+  HisapData.getHisap().then(function(result){
+    $scope.testap = result.list;
+
+    function transform(obj){
+      var arr = [];
+      for(var item in obj){
+          arr.push(obj[item].apSum);
+      }
+      return arr;
+    }
+    function transform1(obj){
+      var arr = [];
+      for(var item in obj){
+          arr.push(obj[item].sumDate);
+      }
+      return arr;
+    }
+    var aparr = transform(result.list);
+
+    var namearr = [];
+    var namearr = transform1(result.list);
+    $scope.labels = namearr;
+    $scope.series = ['A'];
+
+    $scope.data = [
+      aparr
+    ];
+  })
+ }
+)
  .controller('ApCtrl',function($scope,ENV,apData,$http){
   $scope.name='ApCtrl';
   // apData.getApdata();
   // $scope.testap = apData.getApDetail();
-  $http.post(ENV.test,null,{headers: {
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    }})
+  $http.post(ENV.realap,{})
   .success(function(data){
     $scope.testap= data;
     $scope.aplist = data.list;
@@ -51,10 +81,10 @@ angular.module('myApp.controller',['chart.js'])
       }
       return arr;
     }
-    var aparr = transform(data.realtimeCounter);
+    var aparr = transform(data);
     console.log(aparr);
     var namearr = [];
-    for(var o in data.realtimeCounter){//遍历 obj
+    for(var o in data){//遍历 obj
       namearr.push(o);//存入数组
     }
     console.log(namearr);
@@ -65,47 +95,10 @@ angular.module('myApp.controller',['chart.js'])
       aparr
     ];
   });
-
-
-
-  // $scope.$on('ap_ok',function () {
-  //   $scope.apdata = apData.getApdata();
-  // })
   }
 )
-  .controller('RzController', function($scope,$http){
-	$http.get('../json/data.json').success(function(data,status,headers,config){
-		$scope.rzlist = data;
-	}).error(function(data,status,headers,config){
-
-	}) })
-  .controller('zbController',function($scope,ENV,newZhoubao){
-    $scope.name='zbController';
-    newZhoubao.getZhoubao();
-    $scope.$on('zhou_ok',function () {
-      $scope.zhou = newZhoubao.getRealZhoubao();
-    })
 
 
-  }
-)
-.controller('zblistctrl',function ($scope,$http) {
-  $http.get('../json/zb.json').success(function(data,status,headers,config){
-    $scope.zblist = data;
-  }).error(function(data,status,headers,config){
-  })
-})
-.controller('guzhangCtrl',function($scope,ENV,guzhanglist){
-  $scope.name='guzhangCtrl';
-  guzhanglist.getguzhang();
-  $scope.$on('gzlist_ok',function () {
-    $scope.gz = guzhanglist.getRealguzhang();
-  })
-
-})
-.config(function ($httpProvider) {
-   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-})
 .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$localStorage','$http', function($rootScope, $scope, $location, $localStorage, $http) {
 
         var baseUrl = "http://222.204.3.177/oauth/token?client_id=test&client_secret=test&grant_type=password&scope=read write&username=";
@@ -158,8 +151,54 @@ angular.module('myApp.controller',['chart.js'])
                   $scope.data = data;
                 })
               };
-        }]);
+        }])
+.controller('indexCtrl',function($scope,ENV,apData,$http){
+         $scope.name='indexCtrl';
+         // apData.getApdata();
+        //  $scope.testap = apData.getApDetail();
+        //  console.log($scope.testap);
+        apData.getApDetail().then(function(result){
+          $scope.testap = result;
 
+          function transform(obj){
+            var arr = [];
+            for(var item in obj){
+                arr.push(obj[item]);
+            }
+            return arr;
+          }
+          var aparr = transform(result);
+
+          var namearr = [];
+          for(var o in result){//遍历 obj
+            namearr.push(o);//存入数组
+          }
+
+          $scope.labels = namearr;
+          $scope.series = ['A'];
+
+          $scope.data = [
+            aparr
+          ];
+        })
+         }
+       )
+.controller('userCtrl',function($scope,ENV,userService,$http){
+
+           userService.getUserDetail().then(function(result){
+             $scope.userinfo = result;
+           })
+})
+.controller('zbCtrl',function($scope,ENV,zbService,$http){
+          zbService.getZb().then(function(result){
+          $scope.zbinfo = result;
+          $scope.zblist = result.list;
+          })
+})
+
+.controller('zbdeCtrl',function($scope,ENV,zbdeService,$http){
+
+})
 // .controller('PersonalCtrl', function($scope,$rootScope,Storage,$state,UserLogin,$ionicActionSheet,$timeout) {
 //   $rootScope.hide='tabs-item-hide';
 //   $scope.$on('$destroy',function(){
@@ -370,3 +409,9 @@ angular.module('myApp.controller',['chart.js'])
 //       }
 //     });
 //   });
+// .controller('RzController', function($scope,$http){
+// $http.get('../json/data.json').success(function(data,status,headers,config){
+// 	$scope.rzlist = data;
+// }).error(function(data,status,headers,config){
+//
+// }) })

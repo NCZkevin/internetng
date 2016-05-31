@@ -16,7 +16,7 @@
     <!-- Main content -->
     <section class="content">
 
-            <div class="row">
+      <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
@@ -33,7 +33,7 @@
               </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding" ng-controller="zblistctrl">
+            <div class="box-body table-responsive no-padding" >
               <table class="table table-hover">
                 <tr>
 
@@ -43,81 +43,12 @@
                   <th>备注信息</th>
                 </tr>
                 <tr ng-repeat="zb in zblist">
-                  <th>{{zb.date}}</th>
+                  <th>{{zb.updateDate}}</th>
                   <th>{{zb.author}}</th>
                   <th><span class="label label-success">{{zb.status}}</span></th>
-                  <th>{{zb.reason}}</th>
+                  <th>{{zb.remarks}}</th>
                 </tr>
-                <tr>
-                  <td>2016-04-05</td>
-                  <td>张凯文</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr>
-                <tr>
-                  <td>2016-04-05</td>
-                  <td>张凯文</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr>
-                <tr>
-                  <td>2016-04-05</td>
-                  <td>康彪彪</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr>
-                <tr>
-                  <td>2016-04-05</td>
-                  <td>康彪彪</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr>
-                <tr>
-                  <td>2016-04-05</td>
-                  <td>康彪彪</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr>
-                <tr>
-                  <td>2016-04-05</td>
-                  <td>康彪彪</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr><tr>
-                  <td>2016-04-05</td>
-                  <td>康彪彪</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr>
-                <tr>
-                  <td>2016-04-05</td>
-                  <td>康彪彪</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr>
-                <tr>
-                  <td>2016-04-05</td>
-                  <td>康彪彪</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr>
-                <tr>
-                  <td>2016-04-05</td>
-                  <td>康彪彪</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr><tr>
-                  <td>2016-04-05</td>
-                  <td>康彪彪</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr>
-                <tr>
-                  <td>2016-04-05</td>
-                  <td>康彪彪</td>
-                  <td><span class="label label-success">已阅</span></td>
-                  <td>第二周</td>
-                </tr>
+
               </table>
             </div>
             <!-- /.box-body -->
