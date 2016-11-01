@@ -195,9 +195,20 @@ angular.module('myApp.controller',['chart.js'])
           $scope.zblist = result.list;
           })
 })
-
-.controller('zbdeCtrl',function($scope,ENV,zbdeService,$http){
-
+//机房管理控制
+.controller('roomCtrl',function($scope,ENV,zbService,$http){
+          zbService.getZb().then(function(result){
+          $scope.zbinfo = result;
+          $scope.zblist = result.list;
+          })
+})
+.controller('zbdeCtrl',function($scope,ENV,zbdeService,zbService,$http){
+  zbService.getZb().then(function(result){
+  $scope.zbinfo = result;
+  $scope.zblist = result.list;
+  var zbde = zbdeService.get({zbid:result.list.id});
+  console.log(zbde);
+  })
 })
 // .controller('PersonalCtrl', function($scope,$rootScope,Storage,$state,UserLogin,$ionicActionSheet,$timeout) {
 //   $rootScope.hide='tabs-item-hide';

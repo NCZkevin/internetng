@@ -75,15 +75,20 @@ angular.module('myApp',[
 				templateUrl : '../templates/student/sxzb.html',
 				controller : 'zbCtrl'
 			})
-			// .statr('sxzb.detail',{
-			// 	url: '/sxzb/:id',
-			// 	templateUrl : '../templates/student/zbdetail.html',
-			// 	controller: 'zbdeCtrl'
-			// })
+			.state('sxzbdetail',{
+				url: '/sxzb/:id',
+				templateUrl : '../templates/student/zbdetail.html',
+				controller: 'zbdeCtrl'
+			})
 			.state('test',{
 				url: '/test',
 				templateUrl: '../templates/onlytest/test.html',
 				controller: 'testCtrl'
+			})
+			.state('room',{
+				url: '/room',
+				templateUrl: '../templates/room/room.html',
+				controller: 'roomCtrl'
 			})
 			.state('addsxzb',{
 				url: '/addsxzb',

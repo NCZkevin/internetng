@@ -69,7 +69,7 @@ angular.module('myApp.services',['ngResource'])
 	}
 })
 .factory('zbdeService',function ($resource,ENV,$http,$q) {
-	 return $resource(ENV.zb + '/:id');
+	 return $resource(ENV.zb + '/:zbid' ,{zbid:'@id'});
 })
 .factory('newZhoubao',function ($resource,ENV,$rootScope) {
 	var ApiUrl = ENV.test;

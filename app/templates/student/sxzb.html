@@ -43,7 +43,9 @@
                   <th>备注信息</th>
                 </tr>
                 <tr ng-repeat="zb in zblist">
-                  <th>{{zb.updateDate}}</th>
+
+                  <th><a ui-sref="sxzbdetail({id:zb.id})">{{zb.updateDate}}</a></th>
+
                   <th>{{zb.author}}</th>
                   <th><span class="label label-success">{{zb.status}}</span></th>
                   <th>{{zb.remarks}}</th>
